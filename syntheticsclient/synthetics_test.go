@@ -13,9 +13,35 @@ var (
 	// mux is the HTTP request multiplexer used with the test server.
 	testMux *http.ServeMux
 
+	testClient *Client
+
 	// server is a test HTTP server used to provide mock API responses.
 	testServer *httptest.Server
 )
+
+func setup() {
+	testMux = http.NewServeMux()
+	testServer = httptest.NewServer(testMux)
+
+	testMux.HandleFunc("/auth", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(`{"result":"success","returnTo":"/client/vo_go_test","username":"username","orgslug":"org"}`))
+	})
+
+	testClient = NewConfigurableClient("apiKey", ClientArgs{
+		publicBaseUrl:  testServer.URL,
+	})
+	log.Printf("Client instantiated: %s", testClient.publicBaseURL)
+}
+
+func teardown() {
+	testServer.Close()
+}
+
+func testMethod(t *testing.T, r *http.Request, want string) {
+	if got := r.Method; got != want {
+		t.Errorf("Request method: %v, want %v", got, want)
+	}
+}
 
 func TestConfigurableClient(t *testing.T) {
 	testMux = http.NewServeMux()

@@ -43,6 +43,7 @@ type GetChecks struct {
 	} `json:"checks"`
 }
 
+// Leaving off "Enabled" filter setting. Can be added later if required.
 type GetChecksOptions struct {
 	Type string `json:"type"`
   PerPage int `json:"per_page"`
