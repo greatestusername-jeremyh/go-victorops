@@ -7,22 +7,20 @@ import (
 
 var (
 
-	updateBody = `{"name":"snakedonut the revenge"}`
-
-	updateResponse = `{
-		"id": 191484,
-		"name": "snakedonut the revenge",
+	createBody = `{
+		"id": 191588,
+		"name": "Clippie Homepage",
 		"type": "http",
 		"frequency": 5,
 		"paused": false,
 		"muted": false,
-		"created_at": "2021-06-11T15:29:01Z",
-		"updated_at": "2021-06-11T18:19:05Z",
+		"created_at": "2021-06-14T14:12:31.494Z",
+		"updated_at": "2021-06-14T14:12:31.494Z",
 		"links": {
-			"self": "https://monitoring-api.rigor.com/v2/checks/191484",
-			"self_html": "https://monitoring.rigor.com/checks/http/191484",
-			"metrics": "https://monitoring-api.rigor.com/v2/checks/191484/metrics",
-			"last_run": "https://monitoring.rigor.com/checks/191484/runs/9338120804"
+			"self": "https://monitoring-api.rigor.com/v2/checks/191588",
+			"self_html": "https://monitoring.rigor.com/checks/http/191588",
+			"metrics": "https://monitoring-api.rigor.com/v2/checks/191588/metrics",
+			"last_run": ""
 		},
 		"tags": [
 			{
@@ -31,10 +29,10 @@ var (
 			}
 		],
 		"status": {
-			"last_code": 200,
-			"last_message": "OK",
-			"last_response_time": 295,
-			"last_run_at": "2021-06-11T18:19:04Z",
+			"last_code": 0,
+			"last_message": "",
+			"last_response_time": 0,
+			"last_run_at": "0001-01-01T00:00:00Z",
 			"last_failure_at": "0001-01-01T00:00:00Z",
 			"last_alert_at": "0001-01-01T00:00:00Z",
 			"has_failure": false,
@@ -80,8 +78,8 @@ var (
 			{
 				"action_type": "presence_of_text",
 				"comparison_string": "About",
-				"created_at": "2021-06-11T18:19:07.81Z",
-				"updated_at": "2021-06-11T18:19:07.81Z"
+				"created_at": "2021-06-14T14:12:31.526Z",
+				"updated_at": "2021-06-14T14:12:31.526Z"
 			}
 		],
 		"connection": {
@@ -93,24 +91,22 @@ var (
 	}`
 )
 
-func TestUpdateHttpCheck(t *testing.T) {
+func TestCreateHttpCheck(t *testing.T) {
 	setup()
 	defer teardown()
 
-	testMux.HandleFunc("/v2/checks/http/191484", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, "PUT")
-		w.Write([]byte(updateResponse))
+	testMux.HandleFunc("/v2/checks/http", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "POST")
+		w.Write([]byte(createBody))
 	})
 
-	resp, _, err := testClient.UpdateHttpCheck(191484, updateBody)
+	resp, _, err := testClient.CreateHttpCheck(createBody)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if resp.Name != "snakedonut the revenge" {
-		t.Errorf("returned \n\n%#v want \n\n%#v", resp.Name, "snakedonut the revenge")
+	if resp.Name != "Clippie Homepage" {
+		t.Errorf("returned \n\n%#v want \n\n%#v", resp.Name, "Clippie Homepage")
 	}
 }
 
-// TODO
-// Tests for: 401 (bad token), 400 (bad/malformed request), 
