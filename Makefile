@@ -1,6 +1,6 @@
 .PHONY: default all build clean test fmtcheck testacc sonarqube
 
-PKG_NAME=victorops
+PKG_NAME=syntheticsclient
 FILES=./...
 
 default: test

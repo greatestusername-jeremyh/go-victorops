@@ -7,96 +7,95 @@ import (
 )
 
 type CreateHttpCheck struct {
-	ID        int       `json:"id"`
-	Name      string    `json:"name"`
-	Type      string    `json:"type"`
-	Frequency int       `json:"frequency"`
-	Paused    bool      `json:"paused"`
-	Muted     bool      `json:"muted"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	ID        int       `json:"id,omitempty"`
+	Name      string    `json:"name,omitempty"`
+	Type      string    `json:"type,omitempty"`
+	Frequency int       `json:"frequency,omitempty"`
+	Paused    bool      `json:"paused,omitempty"`
+	Muted     bool      `json:"muted,omitempty"`
+	CreatedAt time.Time `json:"created_at,omitempty"`
+	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	Links     struct {
-		Self     string `json:"self"`
-		SelfHTML string `json:"self_html"`
-		Metrics  string `json:"metrics"`
-		LastRun  string `json:"last_run"`
-	} `json:"links"`
+		Self     string `json:"self,omitempty"`
+		SelfHTML string `json:"self_html,omitempty"`
+		Metrics  string `json:"metrics,omitempty"`
+		LastRun  string `json:"last_run,omitempty"`
+	} `json:"links,omitempty"`
 	Tags []struct {
-		ID   int    `json:"id"`
-		Name string `json:"name"`
-	} `json:"tags"`
+		ID   int    `json:"id,omitempty"`
+		Name string `json:"name,omitempty"`
+	} `json:"tags,omitempty"`
 	Status struct {
-		LastCode           int       `json:"last_code"`
-		LastMessage        string    `json:"last_message"`
-		LastResponseTime   int       `json:"last_response_time"`
-		LastRunAt          time.Time `json:"last_run_at"`
-		LastFailureAt      time.Time `json:"last_failure_at"`
-		LastAlertAt        time.Time `json:"last_alert_at"`
-		HasFailure         bool      `json:"has_failure"`
-		HasLocationFailure bool      `json:"has_location_failure"`
-	} `json:"status"`
-	RoundRobin      bool `json:"round_robin"`
-	AutoRetry       bool `json:"auto_retry"`
-	Enabled         bool `json:"enabled"`
+		LastCode           int       `json:"last_code,omitempty"`
+		LastMessage        string    `json:"last_message,omitempty"`
+		LastResponseTime   int       `json:"last_response_time,omitempty"`
+		LastRunAt          time.Time `json:"last_run_at,omitempty"`
+		LastFailureAt      time.Time `json:"last_failure_at,omitempty"`
+		LastAlertAt        time.Time `json:"last_alert_at,omitempty"`
+		HasFailure         bool      `json:"has_failure,omitempty"`
+		HasLocationFailure bool      `json:"has_location_failure,omitempty"`
+	} `json:"status,omitempty"`
+	RoundRobin      bool `json:"round_robin,omitempty"`
+	AutoRetry       bool `json:"auto_retry,omitempty"`
+	Enabled         bool `json:"enabled,omitempty"`
 	BlackoutPeriods []struct {
-	} `json:"blackout_periods"`
+	} `json:"blackout_periods,omitempty"`
 	Locations []struct {
-		ID          int    `json:"id"`
-		Name        string `json:"name"`
-		WorldRegion string `json:"world_region"`
-		RegionCode  string `json:"region_code"`
-	} `json:"locations"`
+		ID          int    `json:"id,omitempty"`
+		Name        string `json:"name,omitempty"`
+		WorldRegion string `json:"world_region,omitempty"`
+		RegionCode  string `json:"region_code,omitempty"`
+	} `json:"locations,omitempty"`
 	Integrations []struct {
-		ID   int    `json:"id"`
-		Name string `json:"name"`
-	} `json:"integrations"`
+		ID   int    `json:"id,omitempty"`
+		Name string `json:"name,omitempty"`
+	} `json:"integrations,omitempty"`
 	HTTPRequestHeaders struct {
-		UserAgent string `json:"User-Agent"`
-	} `json:"http_request_headers"`
+		UserAgent string `json:"User-Agent,omitempty"`
+	} `json:"http_request_headers,omitempty"`
 	Notifications struct {
-		Sms       bool `json:"sms"`
-		Email     bool `json:"email"`
-		Call      bool `json:"call"`
+		Sms       bool `json:"sms,omitempty"`
+		Email     bool `json:"email,omitempty"`
+		Call      bool `json:"call,omitempty"`
 		NotifyWho []struct {
-			Sms   bool `json:"sms"`
-			Email bool `json:"email"`
-			Call  bool `json:"call"`
+			Sms   bool `json:"sms,omitempty"`
+			Email bool `json:"email,omitempty"`
+			Call  bool `json:"call,omitempty"`
 			Links struct {
-			} `json:"links"`
-		} `json:"notify_who"`
-		NotifyAfterFailureCount int  `json:"notify_after_failure_count"`
-		NotifyOnLocationFailure bool `json:"notify_on_location_failure"`
+			} `json:"links,omitempty"`
+		} `json:"notify_who,omitempty"`
+		NotifyAfterFailureCount int  `json:"notify_after_failure_count,omitempty"`
+		NotifyOnLocationFailure bool `json:"notify_on_location_failure,omitempty"`
 		NotificationWindows     []struct {
-		} `json:"notification_windows"`
+		} `json:"notification_windows,omitempty"`
 		Escalations []struct {
-			Sms          bool `json:"sms"`
-			Email        bool `json:"email"`
-			Call         bool `json:"call"`
-			AfterMinutes int  `json:"after_minutes"`
+			Sms          bool `json:"sms,omitempty"`
+			Email        bool `json:"email,omitempty"`
+			Call         bool `json:"call,omitempty"`
+			AfterMinutes int  `json:"after_minutes,omitempty"`
 			NotifyWho    []struct {
 				Links struct {
-				} `json:"links"`
-			} `json:"notify_who"`
-			IsRepeat bool `json:"is_repeat"`
-		} `json:"escalations"`
-		Muted bool `json:"muted"`
-	} `json:"notifications"`
-	URL             string `json:"url"`
-	HTTPMethod      string `json:"http_method"`
+				} `json:"links,omitempty"`
+			} `json:"notify_who,omitempty"`
+			IsRepeat bool `json:"is_repeat,omitempty"`
+		} `json:"escalations,omitempty"`
+		Muted bool `json:"muted,omitempty"`
+	} `json:"notifications,omitempty"`
+	URL             string `json:"url,omitempty"`
+	HTTPMethod      string `json:"http_method,omitempty"`
 	SuccessCriteria []struct {
-		ActionType       string    `json:"action_type"`
-		ComparisonString string    `json:"comparison_string"`
-		CreatedAt        time.Time `json:"created_at"`
-		UpdatedAt        time.Time `json:"updated_at"`
-	} `json:"success_criteria"`
+		ActionType       string    `json:"action_type,omitempty"`
+		ComparisonString string    `json:"comparison_string,omitempty"`
+		CreatedAt        time.Time `json:"created_at,omitempty"`
+		UpdatedAt        time.Time `json:"updated_at,omitempty"`
+	} `json:"success_criteria,omitempty"`
 	Connection struct {
-		UploadBandwidth   int `json:"upload_bandwidth"`
-		DownloadBandwidth int `json:"download_bandwidth"`
-		Latency           int `json:"latency"`
-		PacketLoss        float32 `json:"packet_loss"`
-	} `json:"connection"`
+		UploadBandwidth   int     `json:"upload_bandwidth,omitempty"`
+		DownloadBandwidth int     `json:"download_bandwidth,omitempty"`
+		Latency           int     `json:"latency,omitempty"`
+		PacketLoss        float32 `json:"packet_loss,omitempty"`
+	} `json:"connection,omitempty"`
 }
-
 
 func parseCreateHttpCheckResponse(response string) (*CreateHttpCheck, error) {
 
@@ -111,12 +110,15 @@ func parseCreateHttpCheckResponse(response string) (*CreateHttpCheck, error) {
 }
 
 // CreateTeam creates a team in the victorops organization
-func (c Client) CreateHttpCheck(httpCheckDetails string) (*CreateHttpCheck, *RequestDetails, error) {
-	
-	body := bytes.NewBufferString(httpCheckDetails)
+func (c Client) CreateHttpCheck(httpCheckDetails *CreateHttpCheck) (*CreateHttpCheck, *RequestDetails, error) {
+
+	body, err := json.Marshal(httpCheckDetails)
+	if err != nil {
+		return nil, nil, err
+	}
 
 	// Make the request
-	details, err := c.makePublicAPICall("POST", "/v2/checks/http", body, nil)
+	details, err := c.makePublicAPICall("POST", "/v2/checks/http", bytes.NewBuffer(body), nil)
 	if err != nil {
 		return nil, details, err
 	}

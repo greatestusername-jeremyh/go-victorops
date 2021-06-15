@@ -6,7 +6,6 @@ import (
 )
 
 var (
-
 	updateBody = `{"name":"snakedonut the revenge"}`
 
 	updateResponse = `{
@@ -108,9 +107,9 @@ func TestUpdateHttpCheck(t *testing.T) {
 	}
 
 	if resp.Name != "snakedonut the revenge" {
-		t.Errorf("returned \n\n%#v want \n\n%#v", resp.Name, "snakedonut the revenge")
+		t.Errorf("\nreturned: %#v\n\n want: %#v\n", resp.Name, "snakedonut the revenge")
 	}
 }
 
 // TODO
-// Tests for: 401 (bad token), 400 (bad/malformed request), 
+// Tests for: 401 (bad token), 400 (bad/malformed request),

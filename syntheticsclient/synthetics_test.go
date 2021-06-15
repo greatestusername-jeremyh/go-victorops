@@ -23,12 +23,8 @@ func setup() {
 	testMux = http.NewServeMux()
 	testServer = httptest.NewServer(testMux)
 
-	testMux.HandleFunc("/auth", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(`{"result":"success","returnTo":"/client/vo_go_test","username":"username","orgslug":"org"}`))
-	})
-
 	testClient = NewConfigurableClient("apiKey", ClientArgs{
-		publicBaseUrl:  testServer.URL,
+		publicBaseUrl: testServer.URL,
 	})
 	log.Printf("Client instantiated: %s", testClient.publicBaseURL)
 }
@@ -68,7 +64,6 @@ func TestConfigurableClientTimeout(t *testing.T) {
 	testMux.HandleFunc("/v2/checks/12", func(w http.ResponseWriter, r *http.Request) {
 		time.Sleep(2 * time.Second)
 	})
-
 
 	testConfigurableClient := NewConfigurableClient("apiKey", ClientArgs{
 		timeoutSeconds: 1,

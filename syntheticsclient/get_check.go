@@ -119,10 +119,10 @@ func parseCheckResponse(response string) (*GetCheck, error) {
 // GetUser returns a specific user within this victorops organization
 func (c Client) GetCheck(id int) (*GetCheck, *RequestDetails, error) {
 	// Make the request
-	details, err := c.makePublicAPICall("GET", 
-	fmt.Sprintf("/v2/checks/%d", id), 
-	bytes.NewBufferString("{}"), 
-	nil)
+	details, err := c.makePublicAPICall("GET",
+		fmt.Sprintf("/v2/checks/%d", id),
+		bytes.NewBufferString("{}"),
+		nil)
 
 	// Check for errors
 	if err != nil {
@@ -136,4 +136,3 @@ func (c Client) GetCheck(id int) (*GetCheck, *RequestDetails, error) {
 
 	return check, details, nil
 }
-

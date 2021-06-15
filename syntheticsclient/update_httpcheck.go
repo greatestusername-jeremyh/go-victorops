@@ -91,14 +91,12 @@ type UpdateHttpCheck struct {
 		UpdatedAt        time.Time `json:"updated_at"`
 	} `json:"success_criteria"`
 	Connection struct {
-		UploadBandwidth   int `json:"upload_bandwidth"`
-		DownloadBandwidth int `json:"download_bandwidth"`
-		Latency           int `json:"latency"`
+		UploadBandwidth   int     `json:"upload_bandwidth"`
+		DownloadBandwidth int     `json:"download_bandwidth"`
+		Latency           int     `json:"latency"`
 		PacketLoss        float32 `json:"packet_loss"`
 	} `json:"connection"`
 }
-
-
 
 func parseUpdateHttpCheckResponse(response string) (*UpdateHttpCheck, error) {
 	var updateHttpCheck UpdateHttpCheck
@@ -112,7 +110,7 @@ func parseUpdateHttpCheckResponse(response string) (*UpdateHttpCheck, error) {
 
 // CreateContact creates a new contact for a user
 func (c Client) UpdateHttpCheck(id int, httpCheckDetails string) (*UpdateHttpCheck, *RequestDetails, error) {
-	
+
 	body := bytes.NewBufferString(httpCheckDetails)
 
 	requestDetails, err := c.makePublicAPICall("PUT", fmt.Sprintf("/v2/checks/http/%d", id), body, nil)

@@ -45,10 +45,10 @@ type GetChecks struct {
 
 // Leaving off "Enabled" filter setting. Can be added later if required.
 type GetChecksOptions struct {
-	Type string `json:"type"`
-  PerPage int `json:"per_page"`
-	Page  int `json:"page"`
-  Muted bool `json:"muted"`
+	Type    string `json:"type"`
+	PerPage int    `json:"per_page"`
+	Page    int    `json:"page"`
+	Muted   bool   `json:"muted"`
 }
 
 func parseChecksResponse(response string) (*GetChecks, error) {
@@ -66,20 +66,20 @@ func parseChecksResponse(response string) (*GetChecks, error) {
 func (c Client) GetChecks(params *GetChecksOptions) (*GetChecks, *RequestDetails, error) {
 	// Check for default params
 	if params.Type == "" {
-    params.Type = "all"
-  }
-  if params.Page == 0 {
-    params.Page = int(1)
-  }
-  if params.PerPage == 0 {
-    params.PerPage = int(50)
-  }
+		params.Type = "all"
+	}
+	if params.Page == 0 {
+		params.Page = int(1)
+	}
+	if params.PerPage == 0 {
+		params.PerPage = int(50)
+	}
 
 	// Make the request
 	details, err := c.makePublicAPICall(
-		"GET", 
-		fmt.Sprintf("/v2/checks?type=%s&page=%d&per_page=%d&muted=%t", params.Type, params.Page, params.PerPage, params.Muted), 
-		bytes.NewBufferString("{}"), 
+		"GET",
+		fmt.Sprintf("/v2/checks?type=%s&page=%d&per_page=%d&muted=%t", params.Type, params.Page, params.PerPage, params.Muted),
+		bytes.NewBufferString("{}"),
 		nil)
 
 	// Check for errors
@@ -94,4 +94,3 @@ func (c Client) GetChecks(params *GetChecksOptions) (*GetChecks, *RequestDetails
 
 	return check, details, nil
 }
-

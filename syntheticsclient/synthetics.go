@@ -14,14 +14,14 @@ import (
 // Client is the main client for interacting with victorops
 type Client struct {
 	publicBaseURL string
-	apiKey     string
-	httpClient http.Client
+	apiKey        string
+	httpClient    http.Client
 }
 
 // Client args is used to dynamically pass in parameters when instantiating the Client
 type ClientArgs struct {
 	timeoutSeconds int
-	publicBaseUrl string
+	publicBaseUrl  string
 }
 
 // RequestDetails contains details from the API response
@@ -34,14 +34,14 @@ type RequestDetails struct {
 }
 
 type errorResponse struct {
-	Status string `json:"status,omitempty"`
-	Error string `json:"error,omitempty"`
-	Result string `json:"result,omitempty"`
+	Status  string `json:"status,omitempty"`
+	Error   string `json:"error,omitempty"`
+	Result  string `json:"result,omitempty"`
 	Message string `json:"message,omitempty"`
-	Errors       []struct {
-    Title       string `json:"title,omitempty"`    
-    Description string `json:"description,omitempty"`
-  } `json:"errors,omitempty"`
+	Errors  []struct {
+		Title       string `json:"title,omitempty"`
+		Description string `json:"description,omitempty"`
+	} `json:"errors,omitempty"`
 }
 
 func (c Client) String() string {
@@ -88,8 +88,8 @@ func (c Client) makePublicAPICall(method string, endpoint string, requestBody io
 		if err = json.NewDecoder(resp.Body).Decode(&errRes); err == nil {
 			errorField, err2 := json.Marshal(errRes)
 			if err2 != nil {
-        return &details, fmt.Errorf("unknown issue while parsing API error response, status code: %d", resp.StatusCode)
-    	}
+				return &details, fmt.Errorf("unknown issue while parsing API error response, status code: %d", resp.StatusCode)
+			}
 			return &details, errors.New("Status Code: " + resp.Status + "\n" + string(errorField))
 		}
 		return &details, fmt.Errorf("unknown error, status code: %d", resp.StatusCode)
@@ -119,7 +119,7 @@ func NewConfigurableClient(apiKey string, args ClientArgs) *Client {
 	client := Client{
 		apiKey:     apiKey,
 		httpClient: http.Client{Timeout: time.Duration(args.timeoutSeconds) * time.Second},
-	}	
+	}
 	if args.publicBaseUrl == "" {
 		client.publicBaseURL = "https://monitoring-api.rigor.com"
 	} else {
@@ -139,8 +139,8 @@ func JsonPrint(data interface{}) {
 	//    var err := error
 	p, err := json.Marshal(data)
 	if err != nil {
-			fmt.Println(err)
-			return
+		fmt.Println(err)
+		return
 	}
 	fmt.Printf("%s \n", p)
 }

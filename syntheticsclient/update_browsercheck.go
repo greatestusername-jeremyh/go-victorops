@@ -92,14 +92,12 @@ type UpdateBrowserCheck struct {
 	ExcludedFiles     []interface{} `json:"excluded_files"`
 	Cookies           []interface{} `json:"cookies"`
 	Connection        struct {
-		DownloadBandwidth int `json:"download_bandwidth"`
-		UploadBandwidth   int `json:"upload_bandwidth"`
-		Latency           int `json:"latency"`
+		DownloadBandwidth int     `json:"download_bandwidth"`
+		UploadBandwidth   int     `json:"upload_bandwidth"`
+		Latency           int     `json:"latency"`
 		PacketLoss        float32 `json:"packet_loss"`
 	} `json:"connection"`
 }
-
-
 
 func parseUpdateBrowserCheckResponse(response string) (*UpdateBrowserCheck, error) {
 	var updateBrowserCheck UpdateBrowserCheck
@@ -112,7 +110,7 @@ func parseUpdateBrowserCheckResponse(response string) (*UpdateBrowserCheck, erro
 }
 
 func (c Client) UpdateBrowserCheck(id int, browserCheckDetails string) (*UpdateBrowserCheck, *RequestDetails, error) {
-	
+
 	body := bytes.NewBufferString(browserCheckDetails)
 
 	requestDetails, err := c.makePublicAPICall("PUT", fmt.Sprintf("/v2/checks/real_browsers/%d", id), body, nil)
