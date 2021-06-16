@@ -1,4 +1,4 @@
-package main
+package syntheticsclient
 
 import (
 	"bytes"
@@ -41,17 +41,17 @@ type CreateBrowserCheck struct {
 	AutoRetry       bool `json:"auto_retry,omitempty"`
 	Enabled         bool `json:"enabled,omitempty"`
 	BlackoutPeriods []struct {
-		StartDate         string      `json:"start_date,omitempty"`
-		EndDate           string      `json:"end_date,omitempty"`
-		Timezone          string      `json:"timezone,omitempty"`
-		StartTime         time.Time   `json:"start_time,omitempty"`
-		EndTime           time.Time   `json:"end_time,omitempty"`
-		RepeatType        string      `json:"repeat_type,omitempty"`
-		DurationInMinutes int         `json:"duration_in_minutes,omitempty"`
-		IsRepeat          bool        `json:"is_repeat,omitempty"`
-		MonthlyRepeatType string      `json:"monthly_repeat_type,omitempty"`
-		CreatedAt         time.Time   `json:"created_at,omitempty"`
-		UpdatedAt         time.Time   `json:"updated_at,omitempty"`
+		StartDate         string    `json:"start_date,omitempty"`
+		EndDate           string    `json:"end_date,omitempty"`
+		Timezone          string    `json:"timezone,omitempty"`
+		StartTime         time.Time `json:"start_time,omitempty"`
+		EndTime           time.Time `json:"end_time,omitempty"`
+		RepeatType        string    `json:"repeat_type,omitempty"`
+		DurationInMinutes int       `json:"duration_in_minutes,omitempty"`
+		IsRepeat          bool      `json:"is_repeat,omitempty"`
+		MonthlyRepeatType string    `json:"monthly_repeat_type,omitempty"`
+		CreatedAt         time.Time `json:"created_at,omitempty"`
+		UpdatedAt         time.Time `json:"updated_at,omitempty"`
 	} `json:"blackout_periods,omitempty"`
 	Locations []struct {
 		ID          int    `json:"id,omitempty"`
@@ -74,11 +74,11 @@ type CreateBrowserCheck struct {
 		NotifyOnLocationFailure bool `json:"notify_on_location_failure,omitempty"`
 		Muted                   bool `json:"muted,omitempty"`
 		NotifyWho               []struct {
-			Sms             bool        `json:"sms,omitempty"`
-			Call            bool        `json:"call,omitempty"`
-			Email           bool        `json:"email,omitempty"`
+			Sms             bool   `json:"sms,omitempty"`
+			Call            bool   `json:"call,omitempty"`
+			Email           bool   `json:"email,omitempty"`
 			CustomUserEmail string `json:"custom_user_email,omitempty"`
-			Type            string      `json:"type,omitempty"`
+			Type            string `json:"type,omitempty"`
 			Links           struct {
 				SelfHTML string `json:"self_html,omitempty"`
 			} `json:"links,omitempty"`
@@ -109,7 +109,7 @@ type CreateBrowserCheck struct {
 				DurationInMinutes int       `json:"duration_in_minutes,omitempty"`
 				TimeZone          string    `json:"time_zone,omitempty"`
 			} `json:"notification_window,omitempty"`
-			IsRepeat           bool        `json:"is_repeat,omitempty"`
+			IsRepeat bool `json:"is_repeat,omitempty"`
 		} `json:"escalations,omitempty"`
 	} `json:"notifications,omitempty"`
 	URL                 string `json:"url,omitempty"`
@@ -170,9 +170,9 @@ type CreateBrowserCheck struct {
 		OriginalHostCom   string `json:"original.host.com,omitempty"`
 	} `json:"dns_overrides,omitempty"`
 	Connection struct {
-		UploadBandwidth   int `json:"upload_bandwidth,omitempty"`
-		DownloadBandwidth int `json:"download_bandwidth,omitempty"`
-		Latency           int `json:"latency,omitempty"`
+		UploadBandwidth   int     `json:"upload_bandwidth,omitempty"`
+		DownloadBandwidth int     `json:"download_bandwidth,omitempty"`
+		Latency           int     `json:"latency,omitempty"`
 		PacketLoss        float32 `json:"packet_loss,omitempty"`
 	} `json:"connection,omitempty"`
 	WaitForFullMetrics bool `json:"wait_for_full_metrics,omitempty"`
@@ -190,7 +190,6 @@ func parseCreateBrowserCheckResponse(response string) (*CreateBrowserCheck, erro
 	return &createBrowserCheck, err
 }
 
-// CreateTeam creates a team in the victorops organization
 func (c Client) CreateBrowserCheck(browserCheckDetails *CreateBrowserCheck) (*CreateBrowserCheck, *RequestDetails, error) {
 
 	body, err := json.Marshal(browserCheckDetails)
@@ -198,7 +197,6 @@ func (c Client) CreateBrowserCheck(browserCheckDetails *CreateBrowserCheck) (*Cr
 		return nil, nil, err
 	}
 
-	// Make the request
 	details, err := c.makePublicAPICall("POST", "/v2/checks/real_browsers", bytes.NewBuffer(body), nil)
 	if err != nil {
 		return nil, details, err

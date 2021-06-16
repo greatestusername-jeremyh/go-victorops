@@ -2,7 +2,7 @@
 A Splunk Synthetics (Formerly Rigor) client for golang.
 
 ## Installation
-`go get https://github.com/splunk/syntheticsclient.git`
+`go get https://github.com/greatestusername-jeremyh/syntheticsclient.git`
 
 ## Important Note
 
@@ -10,12 +10,12 @@ This client is used to make the API calls that are mentioned here [Splunk Synthe
 
 ## Example Usages
 ```go
-package main
+package syntheticsclient
 
 import (
 	"fmt"
 
-	"https://github.com/splunk/syntheticsclient.git"
+	"https://github.com/greatestusername-jeremyh/syntheticsclient.git"
 )
 
 func main() {
@@ -31,7 +31,7 @@ func main() {
 	Frequency:          5,
 	URL:                "https://www.google.com"}
 
-	// Make the request and print
+	// Make the request with your check settings and print result
   res, _, err := c.CreateHttpCheck(&o)
 	if err != nil {
 		fmt.Println(err)
@@ -43,12 +43,13 @@ func main() {
 
 Another possibility for initializing your interface is to unmarshal a valid JSON string into the needed struct
 ```go
-package main
+package syntheticsclient
 
 import (
 	"fmt"
+	"encoding/json"
 
-	"https://github.com/splunk/syntheticsclient.git"
+	"https://github.com/greatestusername-jeremyh/syntheticsclient.git"
 )
 
 func main() {
@@ -74,3 +75,6 @@ func main() {
 	}
 }
 ```
+
+## Additional Information
+This client is largely a copypasta mutation of the [go-victor](https://github.com/victorops/go-victorops) client for Splunk On-Call (formerly known as VictorOps).

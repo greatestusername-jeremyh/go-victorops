@@ -1,4 +1,4 @@
-package main
+package syntheticsclient
 
 import (
 	"bytes"
@@ -109,7 +109,6 @@ func parseCreateHttpCheckResponse(response string) (*CreateHttpCheck, error) {
 	return &createHttpCheck, err
 }
 
-// CreateTeam creates a team in the victorops organization
 func (c Client) CreateHttpCheck(httpCheckDetails *CreateHttpCheck) (*CreateHttpCheck, *RequestDetails, error) {
 
 	body, err := json.Marshal(httpCheckDetails)
@@ -117,7 +116,6 @@ func (c Client) CreateHttpCheck(httpCheckDetails *CreateHttpCheck) (*CreateHttpC
 		return nil, nil, err
 	}
 
-	// Make the request
 	details, err := c.makePublicAPICall("POST", "/v2/checks/http", bytes.NewBuffer(body), nil)
 	if err != nil {
 		return nil, details, err

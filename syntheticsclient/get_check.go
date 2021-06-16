@@ -1,4 +1,4 @@
-package main
+package syntheticsclient
 
 import (
 	"bytes"
@@ -116,15 +116,13 @@ func parseCheckResponse(response string) (*GetCheck, error) {
 	return &check, err
 }
 
-// GetUser returns a specific user within this victorops organization
 func (c Client) GetCheck(id int) (*GetCheck, *RequestDetails, error) {
-	// Make the request
+
 	details, err := c.makePublicAPICall("GET",
 		fmt.Sprintf("/v2/checks/%d", id),
 		bytes.NewBufferString("{}"),
 		nil)
 
-	// Check for errors
 	if err != nil {
 		return nil, details, err
 	}

@@ -1,4 +1,4 @@
-package main
+package syntheticsclient
 
 import (
 	"encoding/json"
@@ -11,20 +11,17 @@ import (
 	"time"
 )
 
-// Client is the main client for interacting with victorops
 type Client struct {
 	publicBaseURL string
 	apiKey        string
 	httpClient    http.Client
 }
 
-// Client args is used to dynamically pass in parameters when instantiating the Client
 type ClientArgs struct {
 	timeoutSeconds int
 	publicBaseUrl  string
 }
 
-// RequestDetails contains details from the API response
 type RequestDetails struct {
 	StatusCode   int
 	ResponseBody string
@@ -95,7 +92,6 @@ func (c Client) makePublicAPICall(method string, endpoint string, requestBody io
 		return &details, fmt.Errorf("unknown error, status code: %d", resp.StatusCode)
 	}
 
-	// Read the entire response
 	responseBody, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return &details, err
@@ -108,13 +104,11 @@ func (c Client) makePublicAPICall(method string, endpoint string, requestBody io
 	return &details, nil
 }
 
-// NewClient creates a new VictorOps client
 func NewClient(apiKey string) *Client {
 	args := ClientArgs{timeoutSeconds: 30}
 	return NewConfigurableClient(apiKey, args)
 }
 
-// NewConfigurableClient creates a new VictorOps client with ClientArgs struct
 func NewConfigurableClient(apiKey string, args ClientArgs) *Client {
 	client := Client{
 		apiKey:     apiKey,
@@ -134,9 +128,9 @@ func (c Client) GetHTTPClient() *http.Client {
 	return &c.httpClient
 }
 
+// Helper for tests and output
 func JsonPrint(data interface{}) {
 	var p []byte
-	//    var err := error
 	p, err := json.Marshal(data)
 	if err != nil {
 		fmt.Println(err)

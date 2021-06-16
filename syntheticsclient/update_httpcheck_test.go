@@ -1,4 +1,4 @@
-package main
+package syntheticsclient
 
 import (
 	"net/http"
@@ -9,7 +9,7 @@ var (
 	updateBody = `{"name":"snakedonut the revenge"}`
 
 	updateResponse = `{
-		"id": 191484,
+		"id": 19,
 		"name": "snakedonut the revenge",
 		"type": "http",
 		"frequency": 5,
@@ -96,12 +96,12 @@ func TestUpdateHttpCheck(t *testing.T) {
 	setup()
 	defer teardown()
 
-	testMux.HandleFunc("/v2/checks/http/191484", func(w http.ResponseWriter, r *http.Request) {
+	testMux.HandleFunc("/v2/checks/http/19", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "PUT")
 		w.Write([]byte(updateResponse))
 	})
 
-	resp, _, err := testClient.UpdateHttpCheck(191484, updateBody)
+	resp, _, err := testClient.UpdateHttpCheck(19, updateBody)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -110,6 +110,3 @@ func TestUpdateHttpCheck(t *testing.T) {
 		t.Errorf("\nreturned: %#v\n\n want: %#v\n", resp.Name, "snakedonut the revenge")
 	}
 }
-
-// TODO
-// Tests for: 401 (bad token), 400 (bad/malformed request),
